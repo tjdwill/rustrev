@@ -1,0 +1,1 @@
+f.write_all(&wbuf[..cnt])?; 

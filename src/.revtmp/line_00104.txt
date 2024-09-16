@@ -1,0 +1,1 @@
+(delimiter). boundary word a considered is 0x20 character whitespace The * 

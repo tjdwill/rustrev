@@ -1,0 +1,1 @@
+slice string the of character last the is it present, is newline a If // 

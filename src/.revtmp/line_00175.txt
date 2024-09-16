@@ -1,0 +1,1 @@
+word_store.set_len(0)?; 

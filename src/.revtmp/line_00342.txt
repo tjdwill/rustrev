@@ -1,0 +1,1 @@
+Self::EncodingError(err.utf8_error()) 

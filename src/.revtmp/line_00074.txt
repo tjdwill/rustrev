@@ -1,0 +1,1 @@
+{ RevType<()> -> D) dest: mut S, Write>(src: D: Read, reverse_data<S: fn 

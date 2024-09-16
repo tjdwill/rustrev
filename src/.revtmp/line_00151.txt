@@ -1,0 +1,1 @@
+word_store.write(WORD_DELIM.as_bytes())?; 

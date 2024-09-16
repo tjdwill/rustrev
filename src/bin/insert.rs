@@ -11,16 +11,16 @@ fn main() -> Result<()> {
         .write(true)
         .read(true)
         .open("insert_src.txt")?;
-    insert("<HeadInsertion>".as_bytes(), &mut file)?;
-    insert_at("|INSERTED|".as_bytes(), 7, &mut file)?;
+    insert(&mut file, "<HeadInsertion>".as_bytes(),)?;
+    insert_at(&mut file,"|INSERTED|".as_bytes(), 7, )?;
     Ok(())
 }
 
 
-fn insert(data: &[u8], f: &mut File) -> Result<()> {
-    insert_at(data, 0, f)
+fn insert(f: &mut File, data: &[u8],) -> Result<()> {
+    insert_at(f, data, 0) 
 }
-fn insert_at(data: &[u8], offset: u64, f: &mut File) -> Result<()> {
+fn insert_at(f: &mut File, data: &[u8], offset: u64,) -> Result<()> {
     /*
      * Since files can't really be appended to, we need to use a copy.
      * 

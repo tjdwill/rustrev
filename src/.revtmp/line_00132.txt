@@ -1,0 +1,1 @@
+{ s.split_inclusive("\n")) word_iter.next().map(|s| = lines) Some(mut let while 

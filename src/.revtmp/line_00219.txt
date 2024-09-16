@@ -1,0 +1,1 @@
+dest.write_all(&cat_output.stdout)?; 
