@@ -1,1 +1,0 @@
-tmp_file.seek(SeekFrom::Start(tail_begin))?); assert_eq!(offset, 

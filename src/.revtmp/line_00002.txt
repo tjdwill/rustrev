@@ -1,1 +1,0 @@
-order word the reverse and data the in read source, input an Given /// 

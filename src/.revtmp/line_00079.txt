@@ -1,1 +1,0 @@
-Path::new(TMP_DIR); = tmp_dir let 

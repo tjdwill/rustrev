@@ -1,1 +1,0 @@
-ordering. line proper have to order in character newline last the Write // 

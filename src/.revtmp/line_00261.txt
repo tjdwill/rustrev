@@ -1,1 +1,0 @@
-{ io::Result<()> -> u64,) offset: &[u8], data: File, &mut insert_at(f: fn 

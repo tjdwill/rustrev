@@ -1,1 +1,0 @@
-true both are `last_word` and `last_line` once naturally terminate will loop The // 

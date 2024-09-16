@@ -1,1 +1,0 @@
-f.metadata()?.permissions(); = permissions let 

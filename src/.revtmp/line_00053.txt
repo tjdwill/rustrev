@@ -1,1 +1,0 @@
-args.next().unwrap(); = dest let 

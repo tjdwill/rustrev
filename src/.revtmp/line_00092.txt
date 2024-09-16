@@ -1,1 +1,0 @@
-.open(tmp_dir.join(WORD_STORE))?; 
