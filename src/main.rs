@@ -1,27 +1,16 @@
-#![allow(unused_imports, dead_code)]
-
-use rev::utils::*;
 /// Reverse File
+/// Usage: rev [<src> [<dest>]]
+
+use std::{
+    env,           // Command-line argument handling
+    fs::File,
+    io::{self, prelude::*},
+    path::Path, // File pathing things
+};
+use rev::{reverse_data, RevResult, RevError};
+
 /// Given an input source, read in the data and reverse the word order
 /// (but not the words themselves).
-///
-/// Usage: rev [<src> [<dest>]]
-use std::{
-    convert::From, // Needed for seemless error conversions
-    env,           // Command-line argument handling
-    fs::{self, read, File, OpenOptions},
-    io::{self, prelude::*, Error as IOError, ErrorKind},
-    path::{Path, PathBuf}, // File pathing things
-};
-
-const BUF_SIZE: usize = 1024;
-const LINE_FILE_PREFIX: &str = "line";
-const LINE_FILE_EXT: &str = ".txt";
-const TMP_DIR: &str = ".revtmp";
-const WORD_DELIM: &str = " ";
-const WORD_DELIM_CHAR: char = ' ';
-const WORD_STORE: &str = "word.txt";
-
 fn main() -> RevResult<()> {
     // command line argument parsing
     let mut stdin_mode = false;

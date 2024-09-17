@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 // :;Modules::
 mod tests;
 // ::Imports::
@@ -74,12 +75,12 @@ pub fn reverse_data<S: Read, D: Write>(src: &mut S, mut dest: D) -> RevResult<()
 }
 
 /// Prepends data to the front of the specified file.
-pub fn insert(f: &mut File, data: &[u8]) -> io::Result<()> {
+fn insert(f: &mut File, data: &[u8]) -> io::Result<()> {
     insert_at(f, data, 0)
 }
 
 /// Inserts data to the specified file at the given byte offset.
-pub fn insert_at(f: &mut File, data: &[u8], offset: u64) -> io::Result<()> {
+fn insert_at(f: &mut File, data: &[u8], offset: u64) -> io::Result<()> {
     /*
      * Since files can't really be appended to, we need to use a copy.
      *
@@ -156,7 +157,7 @@ pub fn insert_at(f: &mut File, data: &[u8], offset: u64) -> io::Result<()> {
 }
 
 // Creates a read-write file representing a line
-pub fn make_line_file(line_num: u32, prefix: &str, ext: &str) -> io::Result<File> {
+fn make_line_file(line_num: u32, prefix: &str, ext: &str) -> io::Result<File> {
     let dir: &Path = Path::new(TMP_DIR);
     OpenOptions::new()
         .create(true)
