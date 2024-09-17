@@ -22,7 +22,6 @@ const WORD_DELIM: &str = " ";
 const WORD_DELIM_CHAR: char = ' ';
 const WORD_STORE: &str = "word.txt";
 
-// TODO: Rewrite to call different function based on number of args.
 fn main() -> RevResult<()> {
     // command line argument parsing
     let mut stdin_mode = false;
@@ -45,15 +44,20 @@ fn main() -> RevResult<()> {
                 let mut args = env::args();
                 args.next();
                 let src = args.next().unwrap();
+                let dest = args.next().unwrap();
+
+                if dest == src {
+                    eprintln!("Source and Destination cannot be the same.");
+                    return Err(RevError::ArgumentError);
+                }
                 let src = Path::new(&src).canonicalize()?;
                 let mut src = File::open(src)?;
-                let dest = args.next().unwrap();
                 let dest = File::create(dest)?;
                 reverse_data(&mut src, dest)
             }
             _ => {
                 eprintln!("Too many arguments. Usage: rev [<src> [<dest>]]");
-                Err(RevError::ExcessArguments)
+                Err(RevError::ArgumentError)
             }
         }
     };

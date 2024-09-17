@@ -35,7 +35,8 @@ pub fn reverse_data<S: Read, D: Write>(src: &mut S, mut dest: D) -> RevResult<()
         if i > 0 {
             let mut rev_f = make_line_file(i, REV_FILE_PREFIX, FILE_EXT)?;
             rev_f.seek(SeekFrom::End(0))?;
-            rev_f.write("\n".as_bytes())?;
+            rev_f.write_all("\n".as_bytes())?;
+            rev_f.flush()?;
         }
     }
     // == Concatenate lines ==
@@ -164,7 +165,7 @@ pub fn make_line_file(line_num: u32, prefix: &str, ext: &str) -> io::Result<File
         .open(dir.join(format!("{}_{:05}{}", prefix, line_num, ext)))
 }
 
-/// Given a line file created by `segement_file`, reverses the word order of the file
+/// Given a line file created by `segment_file`, reverses the word order of the file
 fn reverse_word_order(line_f: &mut File, line_num: u32) -> RevResult<()> {
     let mut read_buf = [0_u8; BUF_SIZE];
     let mut write_buf = [0_u8; BUF_SIZE];
@@ -319,7 +320,7 @@ fn segment_file<R: Read>(src: &mut R) -> RevResult<u32> {
 
 #[derive(Debug)]
 pub enum RevError {
-    ExcessArguments,
+    ArgumentError,
     ChildProcessError,
     IOError(IOError),
     EncodingError(Utf8Error),
