@@ -1,20 +1,18 @@
 #![allow(unused_imports, dead_code)]
 
+use rev::utils::*;
 /// Reverse File
 /// Given an input source, read in the data and reverse the word order
 /// (but not the words themselves).
 ///
 /// Usage: rev [<src> [<dest>]]
 use std::{
-    convert::From,                  // Needed for seemless error conversions
-    env,                            // Command-line argument handling 
+    convert::From, // Needed for seemless error conversions
+    env,           // Command-line argument handling
     fs::{self, read, File, OpenOptions},
-    io::{
-        self, Error as IOError, ErrorKind, prelude::*
-    },
-    path::{Path, PathBuf},          // File pathing things
+    io::{self, prelude::*, Error as IOError, ErrorKind},
+    path::{Path, PathBuf}, // File pathing things
 };
-use rev::utils::*;
 
 const BUF_SIZE: usize = 1024;
 const LINE_FILE_PREFIX: &str = "line";
@@ -31,24 +29,27 @@ fn main() -> RevResult<()> {
     if env::args().count() < 3 {
         stdin_mode = true;
     }
-    let ret = { 
+    let ret = {
         match env::args().count() {
-            1 => reverse_data(io::stdin(), io::stdout()),
+            1 => {
+                let mut src = io::stdin();
+                reverse_data(&mut src, io::stdout())
+            }
             2 => {
                 let src = env::args().nth(1).unwrap();
                 let src = Path::new(&src).canonicalize()?;
-                let src_file = File::open(src)?;
-                reverse_data(src_file, io::stdout())
+                let mut src_file = File::open(src)?;
+                reverse_data(&mut src_file, io::stdout())
             }
             3 => {
                 let mut args = env::args();
                 args.next();
                 let src = args.next().unwrap();
                 let src = Path::new(&src).canonicalize()?;
-                let src = File::open(src)?;
+                let mut src = File::open(src)?;
                 let dest = args.next().unwrap();
                 let dest = File::create(dest)?;
-                reverse_data(src, dest)
+                reverse_data(&mut src, dest)
             }
             _ => {
                 eprintln!("Too many arguments. Usage: rev [<src> [<dest>]]");
@@ -63,7 +64,6 @@ fn main() -> RevResult<()> {
             }
             Ok(())
         }
-        Err(err) => Err(err)
+        Err(err) => Err(err),
     }
 }
-
